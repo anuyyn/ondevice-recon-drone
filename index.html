@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>온디바이스 AI 탐지·대응 드론 시연 영상</title>
+<style>
+:root { --bg:#ffffff; --fg:#1f2328; --muted:#59636e; --line:#d8dee4; --accent:#1f5f3f; --card:#f6f8fa; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0d1117; --fg:#e6edf3; --muted:#9198a1; --line:#30363d; --accent:#5fbf8f; --card:#161b22; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font-family:"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif; line-height:1.6; }
+main { max-width:960px; margin:0 auto; padding:28px 16px 64px; }
+h1 { font-size:26px; margin:0 0 4px; }
+.sub { color:var(--muted); margin:0 0 18px; }
+.links a { color:var(--accent); margin-right:16px; font-weight:600; }
+.summary { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 18px; margin:20px 0 8px; }
+.summary p { margin:4px 0; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin:14px 0 4px; }
+.stat { border:1px solid var(--line); border-radius:8px; padding:10px 14px; }
+.stat b { display:block; font-size:20px; color:var(--accent); }
+.stat span { color:var(--muted); font-size:14px; }
+h2 { font-size:20px; margin:40px 0 4px; padding-top:12px; border-top:1px solid var(--line); }
+h3 { font-size:17px; margin:26px 0 4px; }
+p.desc { color:var(--muted); margin:2px 0 10px; }
+video { width:100%; max-height:80vh; background:#000; border-radius:6px; }
+figure { margin:0; }
+figure img { width:100%; aspect-ratio:3/4; object-fit:contain; background:#fff; border:1px solid var(--line); border-radius:6px; display:block; }
+figcaption { color:var(--muted); font-size:14px; text-align:center; margin-top:6px; }
+.grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; }
+.grid3 h3 { margin-top:8px; }
+</style>
+</head>
+<body>
+<main>
+<h1>온디바이스 AI 탐지·대응 드론</h1>
+<p class="sub">국립한국교통대학교 컴퓨터공학과 졸업작품<br>팀원: 박찬우, 김유나, 강민서<br>지도교수: 박현철 교수</p>
+<p class="links"><a href="https://github.com/anuyyn/ondevice-recon-drone">소스 코드</a><a href="presentation.pdf">발표 자료(PDF)</a></p>
+
+<div class="summary">
+<p>정찰드론에 탑재한 Raspberry Pi Zero 2 W가 서버나 클라우드 없이 기체 안에서 카메라 영상을 분석해 드론을 탐지합니다.</p>
+<p>탐지 결과는 조종사 고글 화면과 관제 GUI에 동시에 표시되고, 관제 근무자가 확인·승인하면 요격·추적 대응(Gazebo 시뮬레이션)이 실행됩니다.</p>
+<div class="stats">
+<div class="stat"><b>99.0%</b><span>미학습 표적 조각 716개 분류 시험 균형 정확도 (드론 60/60, 오분류 0건)</span></div>
+<div class="stat"><b>28~30fps</b><span>기체 실측 고글 표시 속도</span></div>
+<div class="stat"><b>초당 3.5~5회</b><span>기체 내 AI 분석 속도</span></div>
+<div class="stat"><b>7 / 10</b><span>요격 시뮬레이션 명중 (10개 상황)</span></div>
+</div>
+</div>
+
+<h2>기체</h2>
+<p class="desc">팀이 직접 설계하고 3D 프린팅으로 제작한 정찰드론입니다.</p>
+<div class="grid3">
+<figure><img src="images/airframe_cad.jpg" alt="정찰드론 3D 설계(CAD)"><figcaption>3D 설계(CAD)</figcaption></figure>
+<figure><img src="images/airframe_exterior.jpg" alt="완성된 정찰드론 외형"><figcaption>완성 기체 외형 (기수 카메라)</figcaption></figure>
+<figure><img src="images/airframe_internal.jpg" alt="정찰드론 내부 구성"><figcaption>내부 구성 (카메라·Raspberry Pi·배선)</figcaption></figure>
+</div>
+
+<h2>비행</h2>
+<!--HOLD <h3>1. 비행 시연</h3> HOLD-->
+<!--HOLD <p class="desc">3D 프린팅으로 직접 제작한 정찰드론의 실내 비행입니다.</p> HOLD-->
+<!--HOLD <video controls preload="metadata" src="videos/01_flight_demo.mp4"></video> HOLD-->
+<h3>2. 비행 시연 (바닥 시점)</h3>
+<video controls preload="metadata" src="videos/02_flight_ground_view.mp4"></video>
+
+<h2>기체 탑재 AI 탐지</h2>
+<h3>3. 기체 카메라 화면에서 실물 드론 탐지</h3>
+<p class="desc">정찰드론 카메라에 잡힌 실물 드론을 Pi가 직접 판정해 박스와 확률(DRONE DETECTED)을 고글 화면에 표시합니다.</p>
+<video controls preload="metadata" src="videos/04_goggle_drone_detect.mp4"></video>
+<h3>4. 관제 GUI 실시간 수신</h3>
+<p class="desc">Pi가 Wi-Fi로 보낸 영상·박스·판정을 관제 노트북이 받아 경보, 탐지 순간 캡처, 이벤트 로그로 보여줍니다. 근무자는 판정을 확인하거나 정정할 수 있습니다.</p>
+<video controls preload="metadata" src="videos/05_ground_station_gui.mp4"></video>
+<h3>5. 화면 속 표적 판정 (고글 출력)</h3>
+<p class="desc">노트북 화면의 표적(새·풍선·드론)을 정찰드론 카메라로 비추면 Pi가 판정해 고글 화면에 표시합니다.</p>
+<video controls preload="metadata" src="videos/03_onboard_detection_demo.mp4"></video>
+
+<h2>외형 분류 결과</h2>
+<p class="desc">같은 경량 분류기(MobileNetV3-Small, 5종)로 드론, 새, 오물풍선 영상을 판정한 결과입니다.</p>
+<div class="grid3">
+<div><h3>6. 드론</h3><video controls preload="metadata" src="videos/06_cls_drone.mp4"></video></div>
+<div><h3>7. 새 (갈매기)</h3><video controls preload="metadata" src="videos/07_cls_bird.mp4"></video></div>
+<div><h3>8. 오물풍선</h3><video controls preload="metadata" src="videos/08_cls_trash_balloon.mp4"></video></div>
+</div>
+
+<h2>대응 시뮬레이션</h2>
+<h3>9. 요격 드론: 비례항법(PN) 유도 (Gazebo)</h3>
+<p class="desc">요격 드론이 카메라 검출 결과와 자세·고도 등 기체가 알 수 있는 값만으로 표적을 탐색·추적해 명중합니다. 왼쪽은 오차·명령 그래프, 가운데는 기체 카메라와 관제 패널, 오른쪽은 3인칭 화면입니다.</p>
+<video controls preload="metadata" src="videos/09_sim_intercept_pn.mp4"></video>
+<h3>10. 추적 태그 부착 (Gazebo)</h3>
+<p class="desc">오물풍선은 터뜨리지 않고, 추적 드론이 막대 끝 깔때기로 풍선 줄을 받아 추적 태그를 겁니다.</p>
+<video controls preload="metadata" src="videos/10_sim_tag_attach.mp4"></video>
+<h3>11. 블렌더 대응 시뮬레이션 1</h3>
+<video controls preload="metadata" src="videos/11_sim_blender_1.mp4"></video>
+<h3>12. 블렌더 대응 시뮬레이션 2</h3>
+<video controls preload="metadata" src="videos/12_sim_blender_2.mp4"></video>
+<h3>13. 도심 상공 시뮬레이션</h3>
+<video controls preload="metadata" src="videos/13_sim_city.mp4"></video>
+<h3>14. 블렌더 대응 시뮬레이션 3</h3>
+<video controls preload="metadata" src="videos/14_sim_blender_3.mp4"></video>
+</main>
+</body>
+</html>
